@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'conexao.php';
+require  __DIR__ . '...\config\conexao.php';
 
 // INSERT USUÁRIO IN DATABASE
 if(isset($_POST['create_usuario'])){
