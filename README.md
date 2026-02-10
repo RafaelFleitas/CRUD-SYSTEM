@@ -8,8 +8,6 @@
 
 ## Funcionalidades
 
-Este projeto tem como futuro para além de um CRUD simples, com a perspectiva de implementar recursos modernos:
-
 - **CRUD Completo:** Criação, Leitura, Atualização e Exclusão de usuários.
 - **Segurança:**
   - Senhas criptografadas com `password_hash` (Bcrypt).
