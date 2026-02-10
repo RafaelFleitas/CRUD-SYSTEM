@@ -1,10 +1,10 @@
 <?php
 session_start();
-require  __DIR__ . '\config\conexao.php';
+require __DIR__ . '/config/conexao.php';
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="PT-BR">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,15 +13,15 @@ require  __DIR__ . '\config\conexao.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   </head>
   <body>
-    <?php include __DIR__ . '\includes\navbar.php'; ?>
+    <?php include __DIR__ . '/includes/navbar.php'; ?>
     <div class="container mt-4">
-        <?php include  __DIR__ .'\includes\mensagem.php'?>
+        <?php include  __DIR__ .'/includes/mensagem.php'?>
         <div class="row">
             <divc class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <h4> Lista de Usuários
-                            <a href="usuario-create.php" class="btn btn-primary float-end"> Adicionar Usuário</a>
+                            <a href="/views/usuario-create.php" class="btn btn-primary float-end"> Adicionar Usuário</a>
                         </h4>
                     </div>
                     <div class="card-body">
@@ -48,8 +48,8 @@ require  __DIR__ . '\config\conexao.php';
                                     <td><?=$usuario['email']?></td>
                                     <td><?=date('d/m/Y', strtotime($usuario['data_nascimento']))?></td>
                                     <td>
-                                        <a href="usuario-view.php?id=<?=$usuario['id']?>" class="btn btn-secondary btn-sm"><span class="bi-eye-fill"</span>&nbsp;Visualizar</a>
-                                        <a href="usuario-edit.php?id=<?=$usuario['id']?>" class="btn btn-success btn-sm"><span class="bi-pencil-fill"</span>&nbsp;Editar</a>
+                                        <a href="/views/usuario-view.php?id=<?=$usuario['id']?>" class="btn btn-secondary btn-sm"><span class="bi-eye-fill"</span>&nbsp;Visualizar</a>
+                                        <a href="/views/usuario-edit.php?id=<?=$usuario['id']?>" class="btn btn-success btn-sm"><span class="bi-pencil-fill"</span>&nbsp;Editar</a>
                                         <form action="acoes.php" method="POST" class=d-inline>
                                             <button onclick=" return confirm('Tem certeza que deseja excluir o usuário <?=$usuario['id']?>?')" type="submit" name= "delete_usuario" value= "<?=$usuario['id']?>" class="btn btn-danger btn-sm"><span class="bi-trash3-fill"</span>&nbsp;Excluir</button>
                                         </form>

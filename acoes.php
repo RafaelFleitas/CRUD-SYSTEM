@@ -1,8 +1,8 @@
 <?php
 session_start();
-require  __DIR__ . '...\config\conexao.php';
+require  __DIR__ . '/config/conexao.php';
 
-// INSERT USUÁRIO IN DATABASE
+# INSERT USUÁRIO IN DATABASE
 if(isset($_POST['create_usuario'])){
     $nome = mysqli_real_escape_string($conexao, trim($_POST['nome']));
     $email = mysqli_real_escape_string($conexao, trim($_POST['email']));
@@ -10,14 +10,14 @@ if(isset($_POST['create_usuario'])){
     $senha = isset($_POST['senha']) ? mysqli_real_escape_string($conexao, password_hash(trim($_POST['senha']), PASSWORD_DEFAULT)) : '';
 
 
-    // Verify if any field is empty
+    # Verify if any field is empty
     if (empty($nome) || empty($email) || empty($data_nascimento) || empty(trim($_POST['senha']))) {
         $_SESSION['message'] = "Todos os campos são obrigatórios!";
         header('Location: index.php');
         exit;
     }
 
-    //VERIFY IF EMAIL IS VALID
+    # VERIFY IF EMAIL IS VALID
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $_SESSION['message'] = "Email inválido!";
         header('Location: index.php');
@@ -39,7 +39,7 @@ if(isset($_POST['create_usuario'])){
     }
 }
 
-// UPDATE USUÁRIO IN DATABASE
+# UPDATE USUÁRIO IN DATABASE
 if(isset($_POST['update_usuario'])){
     $usuario_id = mysqli_real_escape_string($conexao, $_POST['usuario_id']);
 
@@ -69,7 +69,7 @@ if(isset($_POST['update_usuario'])){
     }
 }
 
-//DELETE USUÁRIO IN DATABASE
+# DELETE USUÁRIO IN DATABASE
 if(isset($_POST['delete_usuario'])){
     $usuario_id = mysqli_real_escape_string($conexao,$_POST['delete_usuario']);
     $sql = "DELETE FROM usuarios WHERE id='$usuario_id'";
