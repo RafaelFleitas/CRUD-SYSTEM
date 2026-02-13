@@ -8,8 +8,6 @@
 
 ## Funcionalidades
 
-Este projeto tem como futuro para além de um CRUD simples, com a perspectiva de implementar recursos modernos:
-
 - **CRUD Completo:** Criação, Leitura, Atualização e Exclusão de usuários.
 - **Segurança:**
   - Senhas criptografadas com `password_hash` (Bcrypt).
@@ -28,6 +26,11 @@ Este projeto tem como futuro para além de um CRUD simples, com a perspectiva de
 
 ---
 
+## Incrementações
+
+- **Exportar PDF:** Adicionado botão para exportar um PDF em **Visualização**
+
+
 ## Estrutura do Projeto
 
 O projeto foi organizado separando responsabilidades para facilitar a manutenção:
@@ -35,9 +38,11 @@ O projeto foi organizado separando responsabilidades para facilitar a manutenç�
 ```text
 /
 ├── config/             # Configurações do Banco de Dados
+├── dompdf/             # Biblioteca para converter em PDF
 ├── includes/           # Componentes visuais reutilizáveis (Navbar, Mensagens)
 ├── views/              # Telas do sistema (Formulários)
 ├── index.php           # Página principal (Dashboard)
 ├── acoes.php           # Lógica de processamento (Inserts, Updates, Deletes)
+├── gerar-pdf.php       # Local onde é feito o código para gerar o PDF
 
 
