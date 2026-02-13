@@ -36,7 +36,7 @@
                                 <input type="password" name="senha" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <button type="submit" name="create_usuario" class="btn btn-primary">Salvar Usuário</button>
+                                <button type="submit" name="create_usuario" class="btn btn-primary">Criar Usuário</button>
                             </div>
                         </form>
                     </div>

@@ -1,6 +1,16 @@
 <?php
 session_start();
 require __DIR__ . '/config/conexao.php';
+
+# Search System and Display Users
+$busca = mysqli_real_escape_string($conexao, $_GET['busca'] ?? '');
+if(!empty($_GET['busca'])){
+    $sql = "SELECT * FROM usuarios WHERE nome LIKE '%$busca%' OR email LIKE '%$busca%'";
+} else {
+    $sql = 'SELECT * FROM usuarios';
+}
+$usuarios = mysqli_query($conexao, $sql);
+
 ?>
 
 <!doctype html>
@@ -24,6 +34,14 @@ require __DIR__ . '/config/conexao.php';
                             <a href="/views/usuario-create.php" class="btn btn-primary float-end"> Adicionar Usuário</a>
                         </h4>
                     </div>
+                    <div class="m3">
+                        <form action="">
+                            <div class="input-group mb-2 mt-4">
+                                <input name="busca" type="text" id="pesquisar" class="form-control" placeholder="Pesquisar por nome ou email.">
+                                <button type="submit" class="btn btn-secondary btn-sm float-end">Pesquisar</button>
+                            </div>
+                        </form>
+                    </div>
                     <div class="card-body">
                         <table class="table table-bordered table-striped">
                             <thead>
@@ -36,9 +54,7 @@ require __DIR__ . '/config/conexao.php';
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
-                                $sql = 'SELECT * FROM usuarios';
-                                $usuarios = mysqli_query($conexao, $sql);
+                                <?php
                                 if(mysqli_num_rows($usuarios) > 0){
                                     foreach ($usuarios as $usuario){
                                 ?>
@@ -64,6 +80,8 @@ require __DIR__ . '/config/conexao.php';
                             </tbody>
                         </table>
                     </div>
+                    <div class="card-footer">
+                    <a href="/index.php" class="btn btn-secondary">Mostrar Todos</a>
                 </div>
             </div>
         </div>
