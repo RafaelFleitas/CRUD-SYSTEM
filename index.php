@@ -91,13 +91,14 @@ $usuarios = mysqli_query($conexao, $sql);
         const tabelaUsuarios = document.getElementById('tabela-usuarios');
 
         campoPesquisa.addEventListener('input', function(){
-            let termobusca = campoPesquisa.value;
-            fetch('busca.php?busca=' + termobusca)
-            .then(response => response.text())
-            .then(html =>{
-                tabelaUsuarios.innerHTML = html;
-            });
-        }, 500);
+            timerBusca = setTimeout(function(){
+                fetch('busca.php?busca=' + campoPesquisa.value)
+                .then(response => response.text())
+                .then(html =>{
+                    tabelaUsuarios.innerHTML = html;
+                });
+            }, 500);
+        });
     </script>
   </body>
 </html>

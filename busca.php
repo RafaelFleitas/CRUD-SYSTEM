@@ -1,4 +1,6 @@
 <?php
+
+
 require __DIR__ . '/config/conexao.php';
 
 $busca = mysqli_real_escape_string($conexao, $_GET['busca'] ?? '');
