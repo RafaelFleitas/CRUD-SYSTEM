@@ -27,7 +27,7 @@ $usuarios = mysqli_query($conexao, $sql);
     <div class="container mt-4">
         <?php include  __DIR__ .'/includes/mensagem.php'?>
         <div class="row">
-            <divc class="col-md-12">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <h4> Lista de Usuários
@@ -35,12 +35,10 @@ $usuarios = mysqli_query($conexao, $sql);
                         </h4>
                     </div>
                     <div class="m3">
-                        <form action="">
-                            <div class="input-group mb-2 mt-4">
-                                <input name="busca" type="text" id="pesquisar" class="form-control" placeholder="Pesquisar por nome ou email.">
-                                <button type="submit" class="btn btn-secondary btn-sm float-end">Pesquisar</button>
-                            </div>
-                        </form>
+                        <div class="input-group mb-2 mt-4">
+                            <input name="busca" type="text" id="pesquisar" class="form-control" placeholder="Pesquisar por nome ou email.">
+                            <button class="btn btn-outline-secondary" type="button"><span class="bi-search"></span></button>
+                        </div>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered table-striped">
@@ -53,7 +51,7 @@ $usuarios = mysqli_query($conexao, $sql);
                                     <th>Ações</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id= "tabela-usuarios">
                                 <?php
                                 if(mysqli_num_rows($usuarios) > 0){
                                     foreach ($usuarios as $usuario){
@@ -86,6 +84,20 @@ $usuarios = mysqli_query($conexao, $sql);
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script>
+        const campoPesquisa = document.getElementById('pesquisar');
+        const tabelaUsuarios = document.getElementById('tabela-usuarios');
+
+        campoPesquisa.addEventListener('input', function(){
+            let termobusca = campoPesquisa.value;
+            fetch('busca.php?busca=' + termobusca)
+            .then(response => response.text())
+            .then(html =>{
+                tabelaUsuarios.innerHTML = html;
+            });
+        }, 500);
+    </script>
   </body>
 </html>
