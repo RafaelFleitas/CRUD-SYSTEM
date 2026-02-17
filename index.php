@@ -1,5 +1,6 @@
 <?php
-session_start();
+
+require __DIR__ . '/functions/protect.php';
 require __DIR__ . '/config/conexao.php';
 
 # Search System and Display Users

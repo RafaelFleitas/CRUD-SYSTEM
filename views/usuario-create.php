@@ -9,7 +9,7 @@
   <body>
     <?php include __DIR__ . '/../includes/navbar.php'; ?>
     <div class="container mt-5">
-        <div class="row">'
+        <div class="row">
             <div class= "col-md-12">
                 <div class="card">
                     <div class="card-header">
