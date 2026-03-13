@@ -1,13 +1,20 @@
 <?php
+
+use Dom\Mysql;
+
 session_start();
 require  __DIR__ . '/config/conexao.php';
+
+$mensagem = "";
+$tipo_alerta = "";
+
 
 # INSERT USUÁRIO IN DATABASE
 if(isset($_POST['create_usuario'])){
     $nome = mysqli_real_escape_string($conexao, trim($_POST['nome']));
     $email = mysqli_real_escape_string($conexao, trim($_POST['email']));
     $data_nascimento = mysqli_real_escape_string($conexao, trim($_POST['data_nascimento']));
-    $senha = isset($_POST['senha']) ? mysqli_real_escape_string($conexao, password_hash(trim($_POST['senha']), PASSWORD_DEFAULT)) : '';
+    $senha = mysqli_real_escape_string($conexao, trim($_POST['senha']));
 
 
     # Verify if any field is empty
@@ -22,7 +29,25 @@ if(isset($_POST['create_usuario'])){
         $_SESSION['message'] = "Email inválido!";
         header('Location: index.php');
         exit;
+    } else {
+        $sql = "SELECT id FROM usuarios WHERE email = '$email'";
+        $result = mysqli_query($conexao, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            $_SESSION['message'] = "Email já cadastrado!";
+            header('Location: index.php');
+            exit;
+        }
     }
+
+    #VERIFY IF PASSWORD EXIST AND HAS AT LEAST 6 CHARACTERS
+    if(empty($senha) || strlen($senha) < 6){
+        $_SESSION['message'] = "A senha deve conter pelo menos 6 caracteres!";
+        header('Location: index.php');
+        exit;
+    } else {
+        $senha = password_hash($senha, PASSWORD_DEFAULT);
+    }
+
     
     $sql = "INSERT INTO usuarios( nome, email, data_nascimento, senha) VALUES ('$nome', '$email', '$data_nascimento', '$senha')";
 
@@ -50,6 +75,22 @@ if(isset($_POST['update_usuario'])){
 
 
     $sql = "UPDATE usuarios SET nome='$nome', email='$email', data_nascimento='$data_nascimento'";
+
+    if(!empty($email)){
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['message'] = "Email inválido!";
+            header('Location: index.php');
+            exit;
+        } else {
+            $sql_email = "SELECT id FROM usuarios WHERE email = '$email' AND id != '$usuario_id'";
+            $result_email = mysqli_query($conexao, $sql_email);
+            if (mysqli_num_rows($result_email) > 0) {
+                $_SESSION['message'] = "Email já cadastrado por outro usuário!";
+                header('Location: index.php');
+                exit;
+            }
+        }
+    }
 
     if (!empty($senha)){
         $sql .= ", senha='" . password_hash($senha, PASSWORD_DEFAULT) . "'";
